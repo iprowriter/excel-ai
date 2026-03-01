@@ -1,0 +1,110 @@
+.sidebar {
+  background-color: #0f172a; /* Dark navy from the mockup */
+  color: white;
+}
+
+.sidebar-footer {
+  margin-top: auto; /* Pushes to bottom if sidebar is flex */
+  padding: 20px;
+}
+
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px;
+  margin-bottom: 5px;
+}
+
+.logo-icon {
+  background: #3b82f6; /* Bright blue */
+  color: white;
+  font-weight: bold;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.logo-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.logo-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 20px;
+  color: #8b8888;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+/* Menu Styling */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  color: #94a3b8; /* Muted gray-blue */
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.menu-item.active {
+  background: rgba(59, 130, 246, 0.15); /* Soft blue tint */
+  color: #3b82f6; /* Bright blue text */
+  font-weight: 500;
+}
+
+.new-analysis-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #334155;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.new-analysis-btn:hover {
+  background: #334155;
+}
+
+
+.fileArea {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #3b82f6; /* Muted gray-blue */
+  padding: 12px 16px;
+}

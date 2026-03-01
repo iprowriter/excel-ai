@@ -1,108 +1,18 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-body {
+/* Reset default margins to ensure the dashboard fits perfectly */
+body, html {
   margin: 0;
   padding: 0;
-  background: #0d0d0d;
-  color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100%;
 }
 
 .container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.title {
-  font-size: 3rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #4ea1ff, #b37bff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: #cccccc;
-  margin-bottom: 40px;
-}
-
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #333;
-  padding: 30px;
-  border-radius: 12px;
-  backdrop-filter: blur(6px);
-}
-
-.upload-btn {
-  margin-top: 20px;
-  padding: 12px 24px;
-  background: #3b82f6;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.upload-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.output {
-  margin-top: 40px;
-  background: #111;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: left;
-  overflow-x: auto;
-  border: 1px solid #333;
-  font-size: 0.9rem;
+  display: grid;
+  /* Define the three columns: 20%, 50%, and 30% */
+  grid-template-columns: 15% 60% 25%;
+  /* Ensure the height is exactly the height of the screen */
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Inter', sans-serif; /* Recommended for a modern UI */
 }
 
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
