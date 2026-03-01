@@ -161,3 +161,27 @@
 /* Secondary Button Styles */
 .primary-btn { background: #1e293b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
 .secondary-btn { background: rgba(59, 130, 246, 0.15); border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-right: 8px; }
+
+.report-section-block {
+  margin-bottom: 24px;
+}
+
+.report-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.report-paragraph {
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.report-bullet {
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  margin-left: 20px;
+  list-style: disc;
+}

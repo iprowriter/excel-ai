@@ -28,6 +28,7 @@ export const generateReport = async (req: Request, res: Response) => {
         ${JSON.stringify(summary, null, 2)}
 
         Write:
+        - Summary (1 - 2 sentence)
         - Key insights
         - Trends
         - Risks or anomalies
@@ -38,10 +39,12 @@ export const generateReport = async (req: Request, res: Response) => {
 
     addMessage(sessionId, "assistant", response.content as string);
 
-    return res.json({
+    const result = res.json({
       sessionId,
       report: response.content,
     });
+
+    return result;
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }
