@@ -1,8 +1,8 @@
 import XLSX from "xlsx";
 import type { Request, Response } from "express";
 import { ColumnSummary, ExcelAnalysisResponse, ExcelRow } from "../types";
-
-
+import { llm } from "./artificialIntelligenceController";
+import { createSession, addMessage } from "../domain/sessions";
 
 export const uploadSheet = async (req: Request, res: Response) => {
   try {
@@ -53,16 +53,39 @@ export const uploadSheet = async (req: Request, res: Response) => {
       }
     });
 
-    const response: ExcelAnalysisResponse = {
+    const structured: ExcelAnalysisResponse = {
       rows: sheet.length,
       columns,
       summary,
     };
 
-    return res.json(response);
-  } catch (err: unknown) {
-    const message =
-      err instanceof Error ? err.message : "Unknown server error";
-    return res.status(500).json({ error: message });
+    // Create session for chat memory
+    const sessionId = createSession(structured);
+
+    // AI Executive Report
+    const prompt = `
+      You are an expert data analyst. Convert the following structured Excel summary into a clear, concise executive report.
+
+      Summary:
+      ${JSON.stringify(structured, null, 2)}
+
+      Write:
+      - Key insights
+      - Trends
+      - Risks or anomalies
+      - Recommendations
+    `;
+
+    const aiResponse = await llm.invoke(prompt);
+
+    addMessage(sessionId, "assistant", aiResponse.content as string);
+
+    return res.json({
+      sessionId,
+      structured,
+      report: aiResponse.content,
+    });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message });
   }
 };
