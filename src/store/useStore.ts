@@ -21,6 +21,9 @@ interface AppState {
   // Chat
   chat: ChatMessage[];
 
+  suggestions: string[]; 
+  setSuggestions: (s: string[]) => void;
+
   // Actions
   setFile: (name: string) => void;
   setAnalysis: (data: AnalysisResult) => void;
@@ -32,6 +35,9 @@ export const useStore = create<AppState>((set) => ({
   fileName: null,
   analysis: null,
   chat: [],
+
+  suggestions: [], 
+  setSuggestions: (s) => set({ suggestions: s }),
 
   setFile: (name) => set({ fileName: name }),
 

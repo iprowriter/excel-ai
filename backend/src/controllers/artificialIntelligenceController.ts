@@ -46,6 +46,7 @@ export const generateReport = async (req: Request, res: Response) => {
 
     return result;
   } catch (err: any) {
+    console.log("Error in AI report generation:", err);
     return res.status(500).json({ error: err.message });
   }
 };
@@ -75,16 +76,68 @@ export const continueChat = async (req: Request, res: Response) => {
     ${history}
 
     User message: ${message}
-        `;
+    `;
 
-    const response = await llm.invoke(prompt);
+    // STREAMING RESPONSE
+    const stream = await llm.stream(prompt);
 
-    addMessage(sessionId, "assistant", response.content as string);
+    let full = "";
+    for await (const chunk of stream) {
+      const text = chunk?.content ?? "";
+      full += text;
+    }
+
+    addMessage(sessionId, "assistant", full);
+
+    // FOLLOW-UP SUGGESTIONS
+    const suggestionPrompt = `
+      Based on the conversation and the dataset, generate 3 short follow-up questions the user is likely to ask next.
+      Return ONLY a JSON array of strings. No explanation.
+    `;
+
+    const suggestionResponse = await llm.invoke(suggestionPrompt);
+
+    function normalizeContent(content: any): string {
+      if (typeof content === "string") return content;
+      if (Array.isArray(content)) {
+        return content
+          .map((c) => (typeof c === "string" ? c : c.text ?? ""))
+          .join(" ");
+      }
+      return "";
+    }
+
+    const suggestionText = normalizeContent(suggestionResponse.content);
+
+    let suggestions: string[] = [];
+    try {
+      suggestions = JSON.parse(suggestionText);
+    } catch (err) {
+      console.log("Failed to parse suggestions:", suggestionText);
+      suggestions = [];
+    }
 
     return res.json({
-      reply: response.content,
+      reply: full,
+      suggestions,
     });
   } catch (err: any) {
+    console.log("Error in continueChat:", err);
     return res.status(500).json({ error: err.message });
   }
 };
+
+
+
+
+function normalizeContent(content: any): string {
+  if (typeof content === "string") return content;
+
+  if (Array.isArray(content)) {
+    return content
+      .map((c) => (typeof c === "string" ? c : c.text ?? ""))
+      .join(" ");
+  }
+
+  return "";
+}
