@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./mainAreaComponent.css";
-import { BarChart3, Activity, DollarSign, Sparkles, Paperclip } from 'lucide-react';
+import { BarChart3, Activity, DollarSign, Paperclip } from 'lucide-react';
 import { useStore } from "../../store/useStore"
-import { parseAIReport, extractOverview } from "../../utils/parseReport";
+import { parseAIReport } from "../../utils/parseReport";
 
 
 function MainAreaComponent() {
@@ -45,8 +45,8 @@ function MainAreaComponent() {
    console.log("Structured Analysis:", analysis);
 
    const parsed = analysis?.report ? parseAIReport(analysis.report) : []; 
-   const aiHeadline = parsed.length > 0 ? parsed[0].content[0] : "";
-   const overview = analysis?.report ? extractOverview(analysis.report) : "";
+ //  const aiHeadline = parsed.length > 0 ? parsed[0].content[0] : "";
+ //  const overview = analysis?.report ? extractOverview(analysis.report) : "";
 
 
   const summary = analysis?.structured?.summary;
@@ -88,14 +88,14 @@ function MainAreaComponent() {
 
             {/* Summary Alert */}
            
-            {analysis && (
+            {/* {analysis && (
                 <div className="ai-summary-alert">
                     <Sparkles size={18} className="sparkle-icon" />
                     <p>
                     <strong>AI Insight:</strong> {overview}
                     </p>
                 </div>
-            )}
+            )} */}
 
 
 
