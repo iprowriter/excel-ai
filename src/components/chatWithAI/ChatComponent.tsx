@@ -1,12 +1,13 @@
 import "./chatComponent.css";
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "../../store/useStore";
-import { Search, Paperclip, Send, Sparkles } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 
 function ChatComponent() {
   const { analysis, chat, addChatMessage, suggestions, setSuggestions } = useStore();
 
   const fileName = useStore((state) => state.fileName);
+  const chatDisabled = !analysis?.sessionId;
 
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -93,17 +94,18 @@ function ChatComponent() {
 
 
         <div className="input-container">
-          <button className="attachment-btn"><Paperclip size={18} /></button>
+          {/* <button className="attachment-btn"><Paperclip size={18} /></button> */}
 
           <input
             type="text"
-            placeholder="Ask AI about your data..."
+            placeholder={ chatDisabled ? "Upload a file to start chatting..." : "Ask AI about your data..." }
+            disabled={chatDisabled}
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            onKeyDown={(e) => !chatDisabled && e.key === "Enter" && sendMessage()}
           />
 
-          <button className="send-btn" onClick={sendMessage}>
+          <button className="send-btn" onClick={sendMessage} disabled={chatDisabled}>
             <Send size={18} />
           </button>
         </div>
@@ -134,25 +136,3 @@ function UserChatMessage({ message }: { message: string }) {
 }
 
 
-const  chatMessages = [
-    {
-        type: "ai",
-        content: "Welcome! Q4 data is ready. I've detected a 14% revenue growth. How can I help?",
-        timestamp: "2026-03-04T10:00:00Z"
-    },
-    {
-        type: "user",
-        content: "What drove the Oct revenue spike?",
-        timestamp: "2026-03-04T10:05:00Z"
-    },
-    {
-        type: "ai",
-        content: "The October spike was primarily caused by **'Aero'** early sales, which accounted for 65% of that month's revenue.",
-        timestamp: "2026-03-04T10:07:00Z"
-    },
-    {
-        type: "user",
-        content: "That is crazy, man!",
-        timestamp: "2026-03-04T10:10:00Z"
-    },
-]

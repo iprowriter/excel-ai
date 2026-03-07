@@ -1,3 +1,4 @@
+import { useStore } from "../../store/useStore";
 import "./sidebarComponent.css";
 import { LayoutDashboard, FileBarChart, Files, Settings, Plus } from 'lucide-react';
 
@@ -5,6 +6,7 @@ import { LayoutDashboard, FileBarChart, Files, Settings, Plus } from 'lucide-rea
 function SidebarComponent() {
 
 
+const recentFiles = useStore((state) => state.recentFiles);
 
   return (
          <aside className="sidebar">
@@ -38,15 +40,26 @@ function SidebarComponent() {
         </nav>
 
         {/* Action Button */}
-        <div className="sidebar-footer">
+        {/* <div className="sidebar-footer">
           <button className="new-analysis-btn">
             <Plus size={18} />
             <span>New Analysis</span>
           </button>
-        </div>
+        </div> */}
         <div className="fileArea">
-          Recent files
+          <h4>Recent files</h4>
+
+          {recentFiles.length === 0 && (
+            <div className="empty">No recent files</div>
+          )}
+
+          {recentFiles.map((file, index) => (
+            <div key={index} className="recent-file-item">
+              {file}
+            </div>
+          ))}
         </div>
+
         
       </aside>
    

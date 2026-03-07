@@ -185,3 +185,38 @@
   margin-left: 20px;
   list-style: disc;
 }
+
+
+.upload-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: rgba(59, 130, 246, 0.15); 
+  border: 1px solid #d0d7e2;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #3b82f6; 
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  user-select: none;
+  margin-right: 9px;
+}
+
+.upload-box:hover {
+  background: #eef2f7;
+  border-color: #b8c2d1;
+}
+
+.upload-box:active {
+  background: #e2e8f0;
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-text {
+  pointer-events: none;
+}

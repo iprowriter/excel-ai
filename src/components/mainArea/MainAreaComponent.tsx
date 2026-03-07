@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./mainAreaComponent.css";
-import { BarChart3, Activity, DollarSign, Sparkles } from 'lucide-react';
+import { BarChart3, Activity, DollarSign, Sparkles, Paperclip } from 'lucide-react';
 import { useStore } from "../../store/useStore"
 import { parseAIReport, extractOverview } from "../../utils/parseReport";
 
@@ -10,6 +10,9 @@ function MainAreaComponent() {
 
   const [file, setLocalFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const fileName = useStore((state) => state.fileName);
+
 
   const handleUpload = async () => {
     if (!file) return;
@@ -30,6 +33,7 @@ function MainAreaComponent() {
       sessionId: data.sessionId,
       structured: data.structured,
       report: data.report,
+      fileName: useStore.getState().fileName
     });
 
     setLoading(false);
@@ -53,18 +57,24 @@ function MainAreaComponent() {
             <header className="dashboard-header">
                 <div className="header-info">
                 <div className="file-badge">XLSX</div>
-                <h2>Q4_Sales_Report.xlsx</h2>
+                <h2>{fileName ?? "No file uploaded"}</h2>
                 </div>
                 <div className="header-actions">
+                <label className="upload-box">
                 <input
                     type="file"
                     accept=".xlsx"
+                    className="upload-input"
                     onChange={(e) => {
-                        const f = e.target.files?.[0] || null;
-                        setLocalFile(f);
-                        if (f) setFile(f.name);
+                    const f = e.target.files?.[0] || null;
+                    setLocalFile(f);
+                    if (f) setFile(f.name);
                     }}
-                    />
+                />
+                <Paperclip size={16} style={{ marginRight: 6 }} />
+                <span className="upload-text">Upload Excel File</span>
+                </label>
+
                 <button
                  className="secondary-btn"
                  disabled={!file || loading}
@@ -72,7 +82,7 @@ function MainAreaComponent() {
                  > 
                  {loading ? "Processing..." : "Analyze Excel"}
                  </button>
-                <button className="primary-btn">Share Report</button>
+                <button className="primary-btn">Download</button>
                 </div>
             </header>
 
