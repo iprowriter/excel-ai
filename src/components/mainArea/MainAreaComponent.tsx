@@ -60,8 +60,8 @@ function MainAreaComponent() {
 
    const analysis = useStore((state) => state.analysis);
 
-   console.log("Structured Analysis:", analysis);
-
+  //  console.log("Structured Analysis:", analysis);
+  
    const parsed = analysis?.report ? parseAIReport(analysis.report) : []; 
  //  const aiHeadline = parsed.length > 0 ? parsed[0].content[0] : "";
  //  const overview = analysis?.report ? extractOverview(analysis.report) : "";

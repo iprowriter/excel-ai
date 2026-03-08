@@ -70,7 +70,7 @@ const recentFiles = useStore((state) => state.recentFiles);
           <li><strong>3.</strong> Ask follow‑up questions in chat for deeper insights.</li>
           <li><strong>4.</strong> Click AI suggestions to explore insights instantly.</li>
           <li><strong>5.</strong> <strong>Test File:</strong>  
-            <a href="/assets/financial_analysis_2026.xlsx" download> Download sample Excel</a>
+            <a href="/financial_analysis_2026.xlsx" download> Download sample Excel</a>
           </li>
           <li className="note">App may be temporarily unavailable during high demand.</li>
           <li className="note">Beta version — mobile responsiveness not included.</li>
