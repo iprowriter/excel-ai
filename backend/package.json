@@ -15,21 +15,22 @@
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@langchain/community": "^1.1.20",
+    "@langchain/community": "^1.1.22",
     "@langchain/core": "^1.1.29",
-    "@langchain/google-genai": "^2.1.22",
+    "@langchain/google-genai": "^2.1.24",
     "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
+    "dotenv": "^16.4.5",
     "express": "^5.2.1",
-    "multer": "^2.1.0",
+    "multer": "^2.1.1",
     "uuid": "^13.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/multer": "^2.0.0",
-    "@types/node": "^25.3.3",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^25.3.5",
+    "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
