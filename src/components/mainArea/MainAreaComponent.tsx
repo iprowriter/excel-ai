@@ -39,7 +39,9 @@ function MainAreaComponent() {
 
     setLoading(true);
 
-    const res = await fetch("http://localhost:4000/api/sheet/upload", {
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    const res = await fetch(`${API_URL}/api/sheet/upload`, {
       method: "POST",
       body: formData,
     });
@@ -173,7 +175,6 @@ function MainAreaComponent() {
                 <ChartCard title={`Distribution of ${key}`} key={key}>
                     <HistogramChart
                     values={analysis.structured.numericValues[key]}
-                    column={key}
                     />
                 </ChartCard>
                 ))}
@@ -183,7 +184,7 @@ function MainAreaComponent() {
                 .filter(([_, v]: any) => v.type === "numeric")
                 .map(([key, v]) => (
                 <ChartCard title={`Box Plot: ${key}`} key={key}>
-                    <BoxPlotChart stats={v} column={key} />
+                    <BoxPlotChart stats={v}  />
                 </ChartCard>
                 ))}
 
@@ -194,7 +195,6 @@ function MainAreaComponent() {
                 <ChartCard title={`Category Breakdown: ${key}`} key={key}>
                     <CategoryPieChart
                     data={analysis.structured.textValues[key]}
-                    column={key}
                     />
                 </ChartCard>
                 ))}
