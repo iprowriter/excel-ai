@@ -56,7 +56,6 @@ function MainAreaComponent() {
     });
 
     setLoading(false);
-
    };
 
    const analysis = useStore((state) => state.analysis);
