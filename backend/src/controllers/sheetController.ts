@@ -28,30 +28,84 @@ export const uploadSheet = async (req: Request, res: Response) => {
     const summary: Record<string, ColumnSummary> = {};
 
     columns.forEach((col) => {
-      const values = sheet
-        .map((row) => row[col])
-        .filter((v) => typeof v === "number");
+  const values = sheet
+    .map((row) => row[col])
+    .filter((v) => typeof v === "number");
 
-      if (values.length > 0) {
-        const sum = values.reduce((a: number, b: number) => a + b, 0);
-        const mean = sum / values.length;
-        const min = Math.min(...values);
-        const max = Math.max(...values);
+  if (values.length > 0) {
+    const sorted = [...values].sort((a, b) => a - b);
+    const sum = values.reduce((a, b) => a + b, 0);
+    const mean = sum / values.length;
 
-        summary[col] = {
-          type: "numeric",
-          count: values.length,
-          mean,
-          min,
-          max,
-        };
-      } else {
-        summary[col] = {
-          type: "text",
-          sampleValues: sheet.slice(0, 5).map((r) => r[col]),
-        };
-      }
-    });
+    const median = sorted[Math.floor(values.length / 2)];
+    const min = sorted[0];
+    const max = sorted[sorted.length - 1];
+    const range = max - min;
+
+    const variance =
+      values.reduce((acc, v) => acc + Math.pow(v - mean, 2), 0) /
+      values.length;
+
+    const stdDev = Math.sqrt(variance);
+
+    const q1 = sorted[Math.floor(values.length * 0.25)];
+    const q3 = sorted[Math.floor(values.length * 0.75)];
+    const iqr = q3 - q1;
+
+    const outliers = values.filter(
+      (v) => v < q1 - 1.5 * iqr || v > q3 + 1.5 * iqr
+    ).length;
+
+    summary[col] = {
+      type: "numeric",
+      count: values.length,
+      mean,
+      median,
+      min,
+      max,
+      range,
+      variance,
+      stdDev,
+      q1,
+      q3,
+      iqr,
+      outliers,
+    };
+  } else {
+    summary[col] = {
+      type: "text",
+      sampleValues: sheet.slice(0, 5).map((r) => r[col]),
+      uniqueCount: new Set(sheet.map((r) => r[col])).size,
+    };
+  }
+});
+
+
+    // columns.forEach((col) => {
+    //   const values = sheet
+    //     .map((row) => row[col])
+    //     .filter((v) => typeof v === "number");
+
+    //   if (values.length > 0) {
+    //     const sum = values.reduce((a: number, b: number) => a + b, 0);
+    //     const mean = sum / values.length;
+    //     const min = Math.min(...values);
+    //     const max = Math.max(...values);
+
+    //     summary[col] = {
+    //       type: "numeric",
+    //       count: values.length,
+    //       mean,
+    //       min,
+    //       max,
+    //     };
+    //   } else {
+    //     summary[col] = {
+    //       type: "text",
+    //       sampleValues: sheet.slice(0, 5).map((r) => r[col]),
+    //     };
+    //   }
+    // });
 
     const structured: ExcelAnalysisResponse = {
       rows: sheet.length,

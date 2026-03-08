@@ -145,19 +145,19 @@ function MainAreaComponent() {
             {summary &&
               Object.entries(summary)
                 .filter(([_, v]: any) => v.type === "numeric")
-                .slice(0, 2)
                 .map(([key, v]: any) => (
-                  <div className="kpi-card" key={key}>
+                    <div className="kpi-card" key={key}>
                     <div className="kpi-top">
-                      <span className="kpi-label">{key}</span>
+                        <span className="kpi-label">{key}</span>
                     </div>
-                    <div className="kpi-value">{v.mean}</div>
+                    <div className="kpi-value">{v.mean.toFixed(2)}</div>
                     <div className="kpi-trend">
-                      Min {v.min} / Max {v.max}
+                        Min {v.min} / Max {v.max} / Std {v.stdDev.toFixed(2)}
                     </div>
-                  </div>
-                ))}
-          </section>
+                    </div>
+                ))
+                }
+            </section>
 
           {/* CHARTS */}
           <section className="charts-container">
