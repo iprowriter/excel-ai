@@ -33,4 +33,6 @@ export interface ExcelAnalysisResponse {
   rows: number;
   columns: string[];
   summary: Record<string, ColumnSummary>;
+  numericValues: Record<string, number[]>;
+  textValues: Record<string, string[]>;
 }

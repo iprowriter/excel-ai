@@ -1,0 +1,13 @@
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 4px;
+}
+
+.heatmap-cell {
+  padding: 8px;
+  text-align: center;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}

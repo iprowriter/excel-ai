@@ -13,6 +13,10 @@ export const uploadSheet = async (req: Request, res: Response) => {
     const file = req.file as Express.Multer.File;
     const buffer = file.buffer;
 
+    const numericValues: Record<string, number[]> = {};
+    const textValues: Record<string, string[]> = {};
+
+
     // Parse Excel
     const workbook = XLSX.read(buffer, { type: "buffer" });
     const sheetName = workbook.SheetNames[0];
@@ -78,39 +82,22 @@ export const uploadSheet = async (req: Request, res: Response) => {
       uniqueCount: new Set(sheet.map((r) => r[col])).size,
     };
   }
+
+    if (values.length > 0) {
+      numericValues[col] = values;
+    } else {
+      textValues[col] = sheet.map(r => r[col]);
+    };
+
 });
 
-
-    // columns.forEach((col) => {
-    //   const values = sheet
-    //     .map((row) => row[col])
-    //     .filter((v) => typeof v === "number");
-
-    //   if (values.length > 0) {
-    //     const sum = values.reduce((a: number, b: number) => a + b, 0);
-    //     const mean = sum / values.length;
-    //     const min = Math.min(...values);
-    //     const max = Math.max(...values);
-
-    //     summary[col] = {
-    //       type: "numeric",
-    //       count: values.length,
-    //       mean,
-    //       min,
-    //       max,
-    //     };
-    //   } else {
-    //     summary[col] = {
-    //       type: "text",
-    //       sampleValues: sheet.slice(0, 5).map((r) => r[col]),
-    //     };
-    //   }
-    // });
 
     const structured: ExcelAnalysisResponse = {
       rows: sheet.length,
       columns,
       summary,
+      numericValues,
+      textValues,
     };
 
     // Create session for chat memory

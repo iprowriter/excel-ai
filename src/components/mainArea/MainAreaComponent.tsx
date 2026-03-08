@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import "./mainAreaComponent.css";
-import { BarChart3, Activity, DollarSign, Paperclip } from 'lucide-react';
+import { Activity, DollarSign, Paperclip } from 'lucide-react';
 import { useStore } from "../../store/useStore"
 import { parseAIReport } from "../../utils/parseReport";
+import ChartCard from "../charts/ChartCard";
+import CategoryPieChart from "../charts/CategoryPieChart";
+import BoxPlotChart from "../charts/BoxPlotChart";
+import HistogramChart from "../charts/HistogramChart";
 
 
 
@@ -161,29 +165,43 @@ function MainAreaComponent() {
 
           {/* CHARTS */}
           <section className="charts-container">
-            <div className="chart-card">
-              <div className="chart-header">
-                <BarChart3 size={18} />
-                <span>Numeric Columns Overview</span>
-              </div>
 
-              <div className="chart-placeholder">
-                <div className="bar-container">
-                  {Object.entries(analysis?.structured?.summary)
-                    .filter(([_, v]: any) => v.type === "numeric")
-                    .map(([key, v]: any) => (
-                      <div
-                        key={key}
-                        className="bar"
-                        style={{ height: `${(v.mean / v.max) * 100}%` }}
-                      >
-                        <span>{key}</span>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-          </section>
+            {/* Histograms */}
+            {Object.entries(analysis.structured.summary)
+                .filter(([_, v]: any) => v.type === "numeric")
+                .map(([key]) => (
+                <ChartCard title={`Distribution of ${key}`} key={key}>
+                    <HistogramChart
+                    values={analysis.structured.numericValues[key]}
+                    column={key}
+                    />
+                </ChartCard>
+                ))}
+
+            {/* Box Plots */}
+            {Object.entries(analysis.structured.summary)
+                .filter(([_, v]: any) => v.type === "numeric")
+                .map(([key, v]) => (
+                <ChartCard title={`Box Plot: ${key}`} key={key}>
+                    <BoxPlotChart stats={v} column={key} />
+                </ChartCard>
+                ))}
+
+            {/* Pie Charts for text columns */}
+            {Object.entries(analysis.structured.summary)
+                .filter(([_, v]: any) => v.type === "text")
+                .map(([key]) => (
+                <ChartCard title={`Category Breakdown: ${key}`} key={key}>
+                    <CategoryPieChart
+                    data={analysis.structured.textValues[key]}
+                    column={key}
+                    />
+                </ChartCard>
+                ))}
+
+            
+            </section>
+
 
           {/* REPORT */}
            <section className="report-section">

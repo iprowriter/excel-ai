@@ -1,0 +1,15 @@
+.chart-card {
+  background: #2a3342;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.chart-header h4 {
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.chart-body {
+  height: 260px;
+}
