@@ -1,6 +1,6 @@
 import { ResponsiveContainer, ComposedChart, Line, Scatter, XAxis, YAxis, Tooltip } from "recharts";
 
-export default function BoxPlotChart({ stats, column } : { stats: any; column: string }) {
+export default function BoxPlotChart({ stats} : { stats: any}) {
   const { min, q1, median, q3, max } = stats;
 
   const data = [

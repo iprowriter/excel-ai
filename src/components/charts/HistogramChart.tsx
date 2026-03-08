@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-export default function HistogramChart({ values, column } : { values: number[] | null; column: string }) {
+export default function HistogramChart({ values} : { values: number[] | null; }) {
   if (!values || values.length === 0) return null;
 
   const min = Math.min(...values);

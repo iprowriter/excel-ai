@@ -3,11 +3,9 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 const COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444"];
 
 export default function CategoryPieChart({
-  data,
-  column,
+  data
 }: {
   data: string[] | null;
-  column: string;
 }) {
   if (!data || data.length === 0) return null;
 
