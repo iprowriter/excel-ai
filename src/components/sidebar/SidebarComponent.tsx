@@ -1,6 +1,6 @@
 import { useStore } from "../../store/useStore";
 import "./sidebarComponent.css";
-import { LayoutDashboard, FileBarChart, Files, Settings, Plus } from 'lucide-react';
+import { LayoutDashboard, Settings } from 'lucide-react';
 
 
 function SidebarComponent() {
@@ -25,14 +25,14 @@ const recentFiles = useStore((state) => state.recentFiles);
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
           </button>
-          <button className="menu-item">
+          {/* <button className="menu-item">
             <FileBarChart size={20} />
             <span>Reports</span>
           </button>
           <button className="menu-item">
             <Files size={20} />
             <span>Files</span>
-          </button>
+          </button> */}
           <button className="menu-item">
             <Settings size={20} />
             <span>Settings</span>
@@ -61,6 +61,22 @@ const recentFiles = useStore((state) => state.recentFiles);
         </div>
 
         
+        <div className="howItWorksArea">
+        <h4>How It Works</h4>
+
+        <ul className="howList">
+          <li><strong>1.</strong> Upload an Excel (.xlsx) and click <em>Analyze Excel</em>. You may use the 'Test file' below for quick testing.</li>
+          <li><strong>2.</strong> AI processes your data and updates the dashboard.</li>
+          <li><strong>3.</strong> Ask follow‑up questions in chat for deeper insights.</li>
+          <li><strong>4.</strong> Click AI suggestions to explore insights instantly.</li>
+          <li><strong>5.</strong> <strong>Test File:</strong>  
+            <a href="/assets/financial_analysis_2026.xlsx" download> Download sample Excel</a>
+          </li>
+          <li className="note">App may be temporarily unavailable during high demand.</li>
+          <li className="note">Beta version — mobile responsiveness not included.</li>
+        </ul>
+      </div>
+
       </aside>
    
   );
