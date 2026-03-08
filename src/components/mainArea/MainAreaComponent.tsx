@@ -248,5 +248,7 @@ const loadingMessages = [
     "Optimizing for clarity…",
     "Understanding trends and patterns…", 
     "Extracting insights…", 
+    "Almost done…",
+    "This is taking longer than usual. Hang tight!...let's try again"
  ];
 
